@@ -1,0 +1,39 @@
+{
+  "name": "word-count",
+  "version": "1.0.0",
+  "description": "Count the words in a text file.",
+  "tags": [
+    "text",
+    "demo"
+  ],
+  "inputs": {
+    "file": {
+      "required": true,
+      "description": "path to a text file"
+    }
+  },
+  "steps": [
+    {
+      "id": "count",
+      "run": "wc -w {{inputs.file}}",
+      "expect": {
+        "exit_code": 0,
+        "stdout_contains": ""
+      }
+    }
+  ],
+  "tests": [
+    {
+      "name": "counts words",
+      "inputs": {
+        "file": "examples/sample.txt"
+      },
+      "expect_steps": {
+        "count": {
+          "exit_code": 0,
+          "stdout_contains": "3"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "name": "summarize-file",
+  "version": "1.0.0",
+  "description": "Count the lines of a text file and show its first line.",
+  "tags": [
+    "text",
+    "demo"
+  ],
+  "inputs": {
+    "file": {
+      "required": true,
+      "description": "path to a text file"
+    }
+  },
+  "steps": [
+    {
+      "id": "count",
+      "run": "wc -l {{inputs.file}}",
+      "expect": {
+        "exit_code": 0,
+        "stdout_contains": ""
+      }
+    },
+    {
+      "id": "head",
+      "run": "head -n 1 {{inputs.file}}",
+      "expect": {
+        "exit_code": 0
+      }
+    }
+  ],
+  "tests": [
+    {
+      "name": "counts lines",
+      "inputs": {
+        "file": "examples/sample.txt"
+      },
+      "expect_steps": {
+        "count": {
+          "exit_code": 0,
+          "stdout_contains": "3"
+        },
+        "head": {
+          "exit_code": 0,
+          "stdout_contains": "Alpha"
+        }
+      }
+    }
+  ]
+}
